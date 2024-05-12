@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS for table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        h1, h2 {
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        #case_plot, #death_plot {
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>COVID-19 Dashboard</h1>
+    <h2>COVID-19 Data Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>State</th>
+                <th>Cases</th>
+                <th>New Cases</th>
+                <th>Deaths</th>
+                <th>Vaccination Completed</th>
+                <th>Case Density</th>
+                <th>Infection Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in tabular_data %}
+            <tr>
+                <td>{{ i['state'] }}</td>
+                <td>{{ i['cases'] }}</td>
+                <td>{{ i['new_cases'] }}</td>
+                <td>{{ i['deaths'] }}</td>
+                <td>{{ i['vaccination_completed'] }}</td>
+                <td>{{ i['caseDensity'] }}</td>
+                <td>{{ i['infectionRate'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Cases by State</h2>
+    <div id="case_plot">{{ case_graph|safe }}</div>
+    <h2>Deaths by State</h2>
+    <div id="death_plot">{{ death_graph|safe }}</div>
+</body>
+</html>
